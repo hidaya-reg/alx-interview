@@ -46,6 +46,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     solutions = nqueens(N)
-    for solution in solutions:
+    for solution in sorted(solutions):
         print(solution)
 
