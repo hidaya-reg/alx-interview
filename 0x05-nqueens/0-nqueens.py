@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""The N queens puzzle"""
+"""
+The N queens puzzle
+"""
 
 import sys
 
