@@ -10,7 +10,8 @@ def makeChange(coins, total):
         total (int): Total amount needed
 
     Returns:
-        int: Number of coins needed to make the total, or -1 if it's not possible
+        int: Number of coins needed to make the total
+            or -1 if it's not possible
     """
     if total <= 0:
         return 0
@@ -31,4 +32,3 @@ def makeChange(coins, total):
         num_coins -= 1
 
     return -1
-
