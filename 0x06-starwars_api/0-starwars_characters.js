@@ -2,27 +2,26 @@
 
 const request = require('request');
 
-function fetchCharacter(arr, index) {
-  if (index >= arr.length) return;
-
-  request(arr[index], (err, res, body) => {
-    if (!err && res.statusCode === 200) {
-      console.log(JSON.parse(body).name);
-      fetchCharacter(arr, index + 1);
+const req = (arr, i) => {
+  if (i === arr.length) return;
+  request(arr[i], (err, response, body) => {
+    if (err) {
+      throw err;
     } else {
-      console.error('Error fetching character:', err);
+      console.log(JSON.parse(body).name);
+      req(arr, i + 1);
     }
   });
-}
+};
 
 request(
-  `https://swapi-api.alx-tools.com/api/films/${process.argv[2]}`,
-  (err, res, body) => {
-    if (!err && res.statusCode === 200) {
-      const characters = JSON.parse(body).characters;
-      fetchCharacter(characters, 0); // Start fetching characters
+  `https://swapi-api.hbtn.io/api/films/${process.argv[2]}`,
+  (err, response, body) => {
+    if (err) {
+      throw err;
     } else {
-      console.error('Error fetching movie:', err);
+      const chars = JSON.parse(body).characters;
+      req(chars, 0);
     }
   }
 );
