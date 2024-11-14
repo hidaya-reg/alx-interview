@@ -2,26 +2,19 @@
 
 const request = require('request');
 
-const req = (arr, i) => {
-  if (i === arr.length) return;
-  request(arr[i], (err, response, body) => {
-    if (err) {
-      throw err;
-    } else {
+function fetchCharacters(characters, index) {
+  if (index >= characters.length) return;
+  request(characters[index], (err, res, body) => {
+    if (!err && res.statusCode === 200) {
       console.log(JSON.parse(body).name);
-      req(arr, i + 1);
+      fetchCharacters(characters, index + 1);
     }
   });
-};
+}
 
-request(
-  `https://swapi-api.hbtn.io/api/films/${process.argv[2]}`,
-  (err, response, body) => {
-    if (err) {
-      throw err;
-    } else {
-      const chars = JSON.parse(body).characters;
-      req(chars, 0);
-    }
+request(`https://swapi-api.hbtn.io/api/films/${process.argv[2]}`, (err, res, body) => {
+  if (!err && res.statusCode === 200) {
+    const characters = JSON.parse(body).characters;
+    fetchCharacters(characters, 0);
   }
-);
+});
